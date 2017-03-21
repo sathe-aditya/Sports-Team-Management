@@ -49,7 +49,7 @@ def signup():
 			error="Username already exists!"
 			return render_template('signup.html', error=error)
 		else:
-			newUser = models.User(username=uname, password=pword, age=age)
+			newUser = models.User(username=uname, password=pword, age=age, userType="Public")
 			db.session.add(newUser)
 			db.session.commit()
 			return redirect(url_for('home', user=uname))

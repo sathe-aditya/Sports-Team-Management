@@ -91,4 +91,5 @@ class Admin(object):
         self.name = 'Admin'
     def createUser(self, username, password, userType, age):
         temp = models.User(username=username, password=password, userType=userType, age=age)
-        print (temp.userType)
+        db.session.add(temp)
+        db.session.commit()
