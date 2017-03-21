@@ -5,7 +5,7 @@ class User(db.Model):
 	username = db.Column(db.String(20), index=True, unique=True)
 	age = db.Column(db.Integer)
 	password = db.Column(db.String(20))
+	userType = db.Column(db.String(20))
 
 	def __repr__(self):
 		return '<User %r>' % (self.username)
-

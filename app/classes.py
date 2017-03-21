@@ -5,7 +5,7 @@ Created on Fri Mar 17 22:55:46 2017
 @author: Aditya
 """
 """Code for all the users"""
-
+from app import models, db
 class User(object):
     def __init__(self, name, age, username, password):
         self.name = name
@@ -86,5 +86,9 @@ class Medical(User):
         print('lol')
         #code goes here
     
-    
-    
+class Admin(object):
+    def __init__(self):
+        self.name = 'Admin'
+    def createUser(self, username, password, userType, age):
+        temp = models.User(username=username, password=password, userType=userType, age=age)
+        print (temp.userType)
