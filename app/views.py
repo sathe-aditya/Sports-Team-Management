@@ -16,22 +16,24 @@ userSession = []
 @app.route('/')
 def home():
     return render_template('home.html', user=request.args.get('user'))
-
-@app.route('/login', methods=['GET', 'POST'])
+"""login & signup"""
+@app.route('/login', methods=['GET', 'POST']) #user login
 def login():
     error = None
+    flag = False
     if request.method == 'POST':
-    	uname = request.form['username']
-    	pword = request.form['password']
+    	uname = request.form['username'].strip()
+    	pword = request.form['password'].strip()
     	users = models.User.query.all()
     	for u in users:
-        	if((uname == u.username) and (pword == u.password)):
-        		return redirect(url_for('home', user=u.username))
-        	else:
-        		return "Error."
+    		if(uname == u.username) and (pword == u.password):
+    			flag = True
+    			return redirect(url_for(str.lower(u.userType)))
+    	if not flag:
+    		error = "Invalid Credentials."
     return render_template('login.html', error=error)
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST']) #general user signup
 def signup():
 	error = None
 	if request.method == 'POST':
@@ -49,13 +51,15 @@ def signup():
 			error="Username already exists!"
 			return render_template('signup.html', error=error)
 		else:
-			newUser = models.User(username=uname, password=pword, age=age, userType="Public")
+			newUser = models.User(username=uname, password=pword, age=age, userType="public")
 			db.session.add(newUser)
 			db.session.commit()
 			return redirect(url_for('home', user=uname))
 	return render_template('signup.html')
 
-@app.route('/adminLogin', methods=['GET', 'POST'])
+
+"""admin functions"""
+@app.route('/adminLogin', methods=['GET', 'POST']) #admin login
 def adminLogin():
 	error = None
 	if request.method == 'POST':
@@ -71,11 +75,11 @@ def adminLogin():
 			return render_template('adminLogin.html', error="Invalid ID")
 	return render_template('adminLogin.html')
 
-@app.route('/adminDashboard', methods=['GET', 'POST'])
+@app.route('/adminDashboard', methods=['GET', 'POST']) #admin homepage
 def adminDashboard():
 	return render_template('adminDashboard.html')
 
-@app.route('/createNewUserAdmin', methods=['GET', 'POST'])
+@app.route('/createNewUserAdmin', methods=['GET', 'POST']) #admin create new user
 def createNewUserAdmin():
 	global userSession
 	print (type(userSession))
@@ -89,6 +93,28 @@ def createNewUserAdmin():
 		userSession.createUser(uname,pword,userType,age)
 	return render_template('createNewUserAdmin.html')
 
+
+"""Home pages for various users"""
+
+@app.route('/publicHomePage', methods=['GET', 'POST'])
+def public():
+	return render_template('publicHomePage.html')
+
+@app.route('/coachHomePage', methods=['GET', 'POST'])
+def coach():
+	return render_template('coachHomePage.html')
+
+@app.route('/managementHomePage', methods=['GET', 'POST'])
+def management():
+	return render_template('managementHomePage.html')
+
+@app.route('/playerHomePage', methods=['GET', 'POST'])
+def player():
+	return render_template('playerHomePage.html')
+
+@app.route('/medicalHomePage', methods=['GET', 'POST'])
+def medical():
+	return render_template('medicalHomePage.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

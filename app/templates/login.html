@@ -11,6 +11,7 @@
   </head>
   <body>
     <div class="container">
+    <div class="row">
       <br>
       <form action="" method="post">
       <div class="form-group col-sm-6">
@@ -28,10 +29,12 @@
         <a href="/signup"><input class="btn btn-info" type="button" value="Sign Up"></a>
         </div>
       </form>
-      
+      </div>
+      <div class="row">
       {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
+        <p class="error"><strong>Error:</strong> {{ error }}</p>
       {% endif %}
+      </div>
     </div>
   </body>
 </html>
