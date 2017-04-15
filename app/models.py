@@ -8,4 +8,13 @@ class User(db.Model):
 	userType = db.Column(db.String(20))
 
 	def __repr__(self):
-		return '<User %r>' % (self.username)
+		return '<User %r>' %(self.username)
+
+class Match(db.Model):
+	mid = db.Column(db.Integer, primary_key=True)
+	opponent = db.Column(db.String(30))
+	date = db.Column(db.String(30))
+	time = db.Column(db.String(30))
+
+	def __repr__(self):
+		return '<Match %r>' % (self.opponent)

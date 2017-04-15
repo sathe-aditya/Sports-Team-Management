@@ -46,9 +46,9 @@ class Coach(User):
         print('lol')
         #code goes here
     
-    def viewGames(someParameters):
-        print('lol')
-        #code goes here
+    def viewMatches(self):
+        temp = models.Match.query.all()
+        return temp
 
 class Management(User):
     def __init__(self, name, age, username, password):
@@ -58,9 +58,10 @@ class Management(User):
         print('lol')
         #code goes here
     
-    def scheduleGames(someParameters):
-        print('lol')
-        #code goes here
+    def scheduleMatch(self, opponent, date, time):
+        temp = models.Match(opponent=opponent,date=date,time=time)
+        db.session.add(temp)
+        db.session.commit()
     
 class Player(User):
     def __init__(self, name, age, username, password):

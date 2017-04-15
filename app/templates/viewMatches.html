@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Medical</title>
+    <title>View Matches</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compitable" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,11 +19,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/medicalHomePage">Sports Team</a>
+                <a class="navbar-brand" href="/coachHomePage">Sports Team</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/medicalHomePage"><span class="glyphicon glyphicon-home"
+                    <li class="active"><a href="/coachHomePage"><span class="glyphicon glyphicon-home"
                          aria-hidden="true"></span> Home</a></li>
                 </ul>
                  <ul class="nav navbar-nav navbar-right">
@@ -37,15 +37,29 @@
             </div>
         </div>
     </nav>
-    
     <header class="jumbotron">
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
-            <h1>Medical Home Page</h1>
+            <h1>View Matches</h1>
           </div>
         </div>
       </div>
-    </header>
+      </header>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <table>
+              {% for match in matches %}
+              <tr>
+                <td>{{match.opponent}}</td>
+                <td>{{match.date}}</td>
+                <td>{{match.time}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
   </body>
 </html>
