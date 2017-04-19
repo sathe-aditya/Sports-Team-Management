@@ -8,7 +8,7 @@ Created on Sun Mar 19 14:18:52 2017
 
 from time import sleep
 from app import app
-from flask import render_template, request, redirect, url_for, session, jsonify
+from flask import render_template, request, redirect, url_for, session, jsonify, make_response
 from app import db, models, userSession
 from app import classes
 import json, datetime
@@ -45,7 +45,6 @@ def login():
     				userSession = classes.Management(u.username, u.age, u.username, u.password)
     			else:
     				userSession = classes.Public(u.username, u.age, u.username, u.password)
-
     			return redirect(url_for(str.lower(u.userType)))
     	if not flag:
     		error = "Invalid Credentials."
@@ -145,26 +144,53 @@ def public():
 	global userSession
 	if session['user'] == 'public':
 		print (type(userSession))
-		return render_template('publicHomePage.html', user=userSession.getName())
+		uname = userSession.getName()
+		if uname in request.cookies:
+			resp = make_response(render_template('publicHomePage.html', user=uname, cookie=request.cookies.get(uname)))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
+		else:
+			resp = make_response(render_template('publicHomePage.html', user=uname))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
 	else:
 		return redirect(url_for('home'))
 
 
 @app.route('/playerHomePage', methods=['GET', 'POST'])
 def player():
+	global userSession
 	if session['user'] == 'player':
-		return render_template('playerHomePage.html', user=userSession.getName())
+		print (type(userSession))
+		uname = userSession.getName()
+		if uname in request.cookies:
+			resp = make_response(render_template('playerHomePage.html', user=uname, cookie=request.cookies.get(uname)))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
+		else:
+			resp = make_response(render_template('playerHomePage.html', user=uname))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
 	else:
 		return redirect(url_for('home'))
 
 
 @app.route('/medicalHomePage', methods=['GET', 'POST'])
 def medical():
+	global userSession
 	if session['user'] == 'medical':
-		return render_template('medicalHomePage.html', user=userSession.getName())
+		print (type(userSession))
+		uname = userSession.getName()
+		if uname in request.cookies:
+			resp = make_response(render_template('medicalHomePage.html', user=uname, cookie=request.cookies.get(uname)))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
+		else:
+			resp = make_response(render_template('medicalHomePage.html', user=uname))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
 	else:
 		return redirect(url_for('home'))
-
 
 
 
@@ -172,8 +198,18 @@ def medical():
 
 @app.route('/coachHomePage', methods=['GET', 'POST'])
 def coach():
+	global userSession
 	if session['user'] == 'coach':
-		return render_template('coachHomePage.html', user=userSession.getName())
+		print (type(userSession))
+		uname = userSession.getName()
+		if uname in request.cookies:
+			resp = make_response(render_template('coachHomePage.html', user=uname, cookie=request.cookies.get(uname)))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
+		else:
+			resp = make_response(render_template('coachHomePage.html', user=uname))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
 	else:
 		return redirect(url_for('home'))
 
@@ -194,7 +230,16 @@ def viewMatches():
 def management():
 	global userSession
 	if session['user'] == 'management':
-		return render_template('managementHomePage.html', user=userSession.getName())
+		print (type(userSession))
+		uname = userSession.getName()
+		if uname in request.cookies:
+			resp = make_response(render_template('managementHomePage.html', user=uname, cookie=request.cookies.get(uname)))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
+		else:
+			resp = make_response(render_template('managementHomePage.html', user=uname))
+			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			return resp
 	else:
 		return redirect(url_for('home'))
 

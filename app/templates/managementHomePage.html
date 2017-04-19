@@ -27,6 +27,9 @@
                          aria-hidden="true"></span> Home</a></li>
                 </ul>
                  <ul class="nav navbar-nav navbar-right">
+                 {% if cookie %}
+                 <li><a><span>Last login: {{cookie}}</span></a></li>
+                 {% endif %}
                  {% if user %}
                     <li><a><span>Hello {{user}}!</span></a></li>
                     <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
