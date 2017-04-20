@@ -53,9 +53,34 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <a href="/scheduleMatch">Schedule Match</a>
+          <a id="scheduleMatch">Schedule Match</a>
         </div>
       </div>
     </div>
+    <div class="container" id="main">
+    </div>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script type=text/javascript src="{{url_for('static', filename='jQuery.js') }}"></script>
+    <script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript">
+  $(function() {
+    $('#scheduleMatch').click(function(){
+      $.ajax({
+        url: '/scheduleMatch',
+        type: 'POST',
+        success: function(response){
+          $('#main').html(response);
+        },
+        error: function(response){
+          $('#main').html(response);
+        }
+      });
+    });
+});
+</script>
+
   </body>
 </html>

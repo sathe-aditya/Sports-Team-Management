@@ -50,5 +50,40 @@
         </div>
       </div>
     </header>
+
+          <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <a id="viewPlayers">View Players</a>
+          </div>
+        </div>
+      </div>
+      <div class="container" id="main">
+      </div>
+
+         <script src="../static/js/bootstrap.min.js"></script>
+    <script type=text/javascript src="{{url_for('static', filename='jQuery.js') }}"></script>
+    <script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript">
+  $(function() {
+    $('#viewPlayers').click(function(){
+      $.ajax({
+        url: '/viewPlayerInfo',
+        type: 'POST',
+        success: function(response){
+          $('#main').html(response);
+        },
+        error: function(response){
+          $('#main').html(response);
+        }
+      });
+    });
+});
+
+
+</script>
   </body>
 </html>

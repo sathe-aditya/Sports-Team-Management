@@ -9,11 +9,17 @@ Created on Sun Mar 19 14:18:52 2017
 from time import sleep
 from app import app
 from flask import render_template, request, redirect, url_for, session, jsonify, make_response
-from app import db, models, userSession
+from werkzeug.utils import secure_filename
+from app import db, models, userSession, flag
 from app import classes
-import json, datetime
+import json, datetime, os
 #from app import views, models
 userSession = []
+
+def allowedFile(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @app.route('/')
 def home():
 	session.clear()
@@ -65,24 +71,27 @@ def login():
 def signup():
 	error = None
 	if request.method == 'POST':
-		uname=request.form['username']
-		pword=request.form['password']
-		age=int(request.form['age'])
-		flag = False
+		try:
+			uname=request.form['username']
+			pword=request.form['password']
+			age=int(request.form['age'])
+			flag = False
 
-		users = models.User.query.all()
-		for u in users:
-			if(uname == u.username):
-				flag = True
+			users = models.User.query.all()
+			for u in users:
+				if(uname == u.username):
+					flag = True
 
-		if flag:
-			error="Username already exists!"
-			return render_template('signup.html', error=error)
-		else:
-			newUser = models.User(username=uname, password=pword, age=age, userType="public")
-			db.session.add(newUser)
-			db.session.commit()
-			return redirect(url_for('home', user=uname))
+			if flag:
+				error="Username already exists!"
+				return render_template('signup.html', error=error)
+			else:
+				newUser = models.User(username=uname, password=pword, age=age, userType="public")
+				db.session.add(newUser)
+				db.session.commit()
+				return redirect(url_for('home', user=uname))
+		except Exception:
+			pass
 	return render_template('signup.html')
 
 
@@ -165,6 +174,17 @@ def public():
 		return redirect(url_for('home'))
 
 
+@app.route('/viewPlayerInfo', methods=['GET', 'POST'])
+def viewPlayerInfo():
+	if session['user'] == 'public':
+		global userSession
+		players = userSession.viewPlayerInfo()
+		print(players)
+		return render_template('viewPlayerInfo.html', players=players, user=userSession.getName())
+	else:
+		return redirect(url_for('home'))
+
+
 @app.route('/playerHomePage', methods=['GET', 'POST'])
 def player():
 	global userSession
@@ -179,6 +199,36 @@ def player():
 			resp = make_response(render_template('playerHomePage.html', user=uname))
 			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
 			return resp
+	else:
+		return redirect(url_for('home'))
+
+@app.route('/addPlayerInfo', methods=['POST','GET'])
+def addPlayerInfo():
+	global userSession
+	if session['user'] == 'player':
+		print(type(userSession))
+		uname = userSession.getName()
+		if request.method == 'POST':
+			try:
+				name = request.form['playerName']
+				weight = request.form['playerWeight']
+				height = request.form['playerHeight']
+				jersey = request.form['playerNumber']
+				position = request.form['playerPosition']
+				# image = request.files['playerPhoto']
+				# print(name, weight, height, jersey, position, image.filename)
+				# filename = secure_filename(image.filename)
+				# file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				# path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+				# print(app.config['UPLOAD_FOLDER'])
+				userSession.addPlayerInfo(name, weight, height, jersey, position, uname)
+				if uname in request.cookies:
+					return render_template('playerHomePage.html', user=uname, cookie=request.cookies.get(uname))
+				else:
+					return render_template('playerHomePage.html', user=uname)
+			except Exception:
+				pass
+		return render_template('addPlayerInfo.html')
 	else:
 		return redirect(url_for('home'))
 
@@ -237,12 +287,15 @@ def viewMatches():
 @app.route('/managementHomePage', methods=['GET', 'POST'])
 def management():
 	global userSession
+	global flag
 	if session['user'] == 'management':
 		print (type(userSession))
 		uname = userSession.getName()
 		if uname in request.cookies:
 			resp = make_response(render_template('managementHomePage.html', user=uname, cookie=request.cookies.get(uname)))
-			resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+			if not flag:
+				resp.set_cookie(uname, str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M")))
+				flag = True
 			return resp
 		else:
 			resp = make_response(render_template('managementHomePage.html', user=uname))
@@ -255,15 +308,25 @@ def management():
 def scheduleMatch():
 	global userSession
 	print(type(userSession))
+	uname = userSession.getName()
 	if session['user'] == 'management':
 		if request.method == 'POST':
-			opponent = request.form['opponent']
+			print ("LOL")
+			try:
+				opponent = request.form['opponent']
 			#temp = request.form['date'].split('-')
 			#date = datetime.date(int(temp[0]),int(temp[1]),int(temp[2]))
-			date = request.form['date']
-			time = request.form['time']
-			userSession.scheduleMatch(opponent,date,time)
-		return render_template('scheduleMatch.html', user=userSession.getName())
+				date = request.form['date']
+				time = request.form['time']
+				userSession.scheduleMatch(opponent,date,time)
+				if uname in request.cookies:
+					return render_template('managementHomePage.html', user=uname, cookie=request.cookies.get(uname))
+				else:
+					return render_template('managementHomePage.html', user=uname)
+			except Exception:
+				print ("LEL")
+				pass
+		return render_template('scheduleMatch.html', user=uname)
 	else:
 		return redirect(url_for('home'))
 

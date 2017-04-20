@@ -18,3 +18,15 @@ class Match(db.Model):
 
 	def __repr__(self):
 		return '<Match %r>' % (self.opponent)
+
+class Player(db.Model):
+	pid = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(30))
+	height = db.Column(db.Integer)
+	weight = db.Column(db.Integer)
+	position = db.Column(db.String(30))
+	jersey = db.Column(db.Integer)
+	uname = db.Column(db.String(30), db.ForeignKey('user.username'))
+
+	def __repr__(self):
+		return '<Player %r>' % (self.name)

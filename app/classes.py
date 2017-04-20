@@ -29,6 +29,9 @@ class Public(User):
     def bookTickets(someParameters):
         print('lol')
         #code goes here
+    def viewPlayerInfo(self):
+        temp = models.Player.query.all()
+        return temp
         
 class Coach(User):
     def __init__(self, name, age, username, password):
@@ -71,8 +74,10 @@ class Player(User):
         print('lol')
         #code goes here
     
-    def viewDiets(someParameters):
-        print('lol')
+    def addPlayerInfo(self, name, weight, height, jersey, position, uname):
+        temp = models.Player(name=name, weight=int(weight), jersey=int(jersey), position=position, height=int(height), uname=uname)
+        db.session.add(temp)
+        db.session.commit()
         #code goes here
         
     def viewTrainingSchedule(someParameters):

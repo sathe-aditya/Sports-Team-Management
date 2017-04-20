@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Coach</title>
+    <title>Coach Home Page</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compitable" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,9 +52,36 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
-            <a href="/viewMatches">View Matches</a>
+            <a id="viewMatches">View Matches</a>
           </div>
         </div>
       </div>
+      <div class="container" id="main">
+      </div>
+
+         <script src="../static/js/bootstrap.min.js"></script>
+    <script type=text/javascript src="{{url_for('static', filename='jQuery.js') }}"></script>
+    <script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript">
+  $(function() {
+    $('#viewMatches').click(function(){
+      $.ajax({
+        url: '/viewMatches',
+        type: 'POST',
+        success: function(response){
+          $('#main').html(response);
+        },
+        error: function(response){
+          $('#main').html(response);
+        }
+      });
+    });
+});
+
+
+</script>
   </body>
 </html>
