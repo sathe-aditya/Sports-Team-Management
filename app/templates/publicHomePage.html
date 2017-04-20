@@ -53,8 +53,11 @@
 
           <div class="container">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-xs-12 col-sm-1">
             <a id="viewPlayers">View Players</a>
+          </div>
+          <div class="col-xs-12 col-sm-1">
+            <a id="viewMatches">View Matches</a>
           </div>
         </div>
       </div>
@@ -83,7 +86,20 @@
     });
 });
 
-
+$(function() {
+    $('#viewMatches').click(function(){
+      $.ajax({
+        url: '/viewMatches',
+        type: 'POST',
+        success: function(response){
+          $('#main').html(response);
+        },
+        error: function(response){
+          $('#main').html(response);
+        }
+      });
+    });
+});
 </script>
   </body>
 </html>

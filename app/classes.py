@@ -32,6 +32,9 @@ class Public(User):
     def viewPlayerInfo(self):
         temp = models.Player.query.all()
         return temp
+    def viewMatches(self):
+        temp = models.Match.query.all()
+        return temp
         
 class Coach(User):
     def __init__(self, name, age, username, password):
