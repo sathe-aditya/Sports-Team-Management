@@ -21,34 +21,42 @@ def home():
 
 
 
+@app.route('/someFunc', methods=['POST', 'GET'])
+def someFunc():
+	return render_template('login.html')
+
+
 """login & signup"""
 @app.route('/login', methods=['GET', 'POST']) #user login
 def login():
-    error = None
-    flag = False
-    global userSession
-    if request.method == 'POST':
-    	uname = request.form['username'].strip()
-    	pword = request.form['password'].strip()
-    	users = models.User.query.all()
-    	for u in users:
-    		if(uname == u.username) and (pword == u.password):
-    			flag = True
-    			session['user'] = str.lower(u.userType)
-    			if str.lower(u.userType) == 'coach':
-    				userSession = classes.Coach(u.username, u.age, u.username, u.password)
-    			elif str.lower(u.userType) == 'player':
-    				userSession = classes.Player(u.username, u.age, u.username, u.password)
-    			elif str.lower(u.userType) == 'medical':
-    				userSession = classes.Medical(u.username, u.age, u.username, u.password)
-    			elif str.lower(u.userType) == 'management':
-    				userSession = classes.Management(u.username, u.age, u.username, u.password)
-    			else:
-    				userSession = classes.Public(u.username, u.age, u.username, u.password)
-    			return redirect(url_for(str.lower(u.userType)))
-    	if not flag:
-    		error = "Invalid Credentials."
-    return render_template('login.html', error=error)
+	error = None
+	flag = False
+	global userSession
+	if request.method == 'POST':
+		try:
+			uname = request.form['username'].strip()
+			pword = request.form['password'].strip()
+			users = models.User.query.all()
+			for u in users:
+				if(uname == u.username) and (pword == u.password):
+					flag = True
+					session['user'] = str.lower(u.userType)
+					if str.lower(u.userType) == 'coach':
+						userSession = classes.Coach(u.username, u.age, u.username, u.password)
+					elif str.lower(u.userType) == 'player':
+						userSession = classes.Player(u.username, u.age, u.username, u.password)
+					elif str.lower(u.userType) == 'medical':
+						userSession = classes.Medical(u.username, u.age, u.username, u.password)
+					elif str.lower(u.userType) == 'management':
+						userSession = classes.Management(u.username, u.age, u.username, u.password)
+					else:
+						userSession = classes.Public(u.username, u.age, u.username, u.password)
+					return redirect(url_for(str.lower(u.userType)))
+			if not flag:
+				error = "Invalid Credentials."
+		except Exception:
+			pass
+	return render_template('login.html', error=error)
 
 
 
@@ -87,9 +95,9 @@ def verifyUserName():
 		if temp == u.username:
 			flag = True
 	if flag:
-		return json.dumps({'status':'OK','valid':'no'})
+		return "Invalid"
 	else:
-		return json.dumps({'status':'OK','valid':'yes'})
+		return "Valid"
 
 
 
@@ -262,4 +270,4 @@ def scheduleMatch():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+	app.run(debug=True)

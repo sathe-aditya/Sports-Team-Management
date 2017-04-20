@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -34,59 +34,15 @@
                     <li><a><span>Hello {{user}}!</span></a></li>
                     <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                  {% else %}
-                    <li><a id="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a id="signup"><span class="glyphicon glyphicon-log-in"></span> Signup</a></li>
+                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                  {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
 
- <div class="container">
-        <div class="row">
-           <div id="main"></div>
-        </div>
-      </div>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script type=text/javascript src="{{url_for('static', filename='jQuery.js') }}"></script>
-    <script type="text/javascript">
-  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
 
-    <script type="text/javascript">
-  $(function() {
-    $('#login').click(function(){
-      $.ajax({
-        url: '/login',
-        type: 'POST',
-        success: function(response){
-          $('#main').html(response);
-        },
-        error: function(response){
-          $('#main').html(response);
-        }
-      });
-    });
-});
-
-  $(function(){
-    $('#signup').click(function(){
-      $.ajax({
-        url: '/someFunc',
-        data: $('form').serialize(),
-        type: 'POST',
-        success: function(response){
-          $('#main').html(response);
-        },
-        error: function(response){
-          $('#main').html(response);
-        }
-      });
-    });
-  });
-
-
-</script>
+    <script src="static/js/bootstrap.min.js"></script>
 </body>
 
 </html>
