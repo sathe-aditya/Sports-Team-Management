@@ -59,10 +59,14 @@
           <div class="col-xs-12 col-sm-1">
             <a id="viewMatches">View Matches</a>
           </div>
+          <div class="col-xs-12 col-sm-1">
+            <a id="viewNews">View News</a>
+          </div>
         </div>
       </div>
       <div class="container" id="main">
       </div>
+      <iframe id="news" height="768px" width="1366px" src="http://www.goal.com/en-india/module/breaking-news/content" style="-webkit-transform:scale(0.7);-moz-transform-scale(0.7);"></iframe>
 
          <script src="../static/js/bootstrap.min.js"></script>
     <script type=text/javascript src="{{url_for('static', filename='jQuery.js') }}"></script>
@@ -73,6 +77,8 @@
     <script type="text/javascript">
   $(function() {
     $('#viewPlayers').click(function(){
+      $('#main').show();
+      $('#news').hide();
       $.ajax({
         url: '/viewPlayerInfo',
         type: 'POST',
@@ -88,6 +94,8 @@
 
 $(function() {
     $('#viewMatches').click(function(){
+      $('#main').show();
+      $('#news').hide();
       $.ajax({
         url: '/viewMatches',
         type: 'POST',
@@ -100,6 +108,15 @@ $(function() {
       });
     });
 });
+
+$(function(){
+  $('#viewNews').click(function(){
+    $('#news').show();
+    $('#main').hide();
+    $('#news').attr('src', "http://www.goal.com/en-india/module/breaking-news/content");
+  });
+});
+
 </script>
   </body>
 </html>
