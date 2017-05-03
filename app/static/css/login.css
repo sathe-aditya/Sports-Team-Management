@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+#title {
+
+	font-family: "Cooper Black", "Cooperplate Gothic Light";
+	font-size: 60px;
+	font-style: bold;
+
+	color: #4db6ac;
+}
+
+#title-box{
+
+	background-color: black;
+}
+
+#login-page{
+
+	background-color: black;
+}
+
+#formAccordion{
+
+	font-family: "Rockwell";
+	font-size: 20px;
+	font-style: bold;
+
+}

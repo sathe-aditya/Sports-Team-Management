@@ -1,0 +1,340 @@
+@charset "utf-8";
+
+#page-head {
+
+	color: black;
+}
+
+#title{
+
+	font-family: "Cooper Black";
+	font-size: 40px;
+	font-style: bold;
+
+	text-align: center;
+
+	color: #4db6ac;
+	
+}
+
+/* Main content of the site */
+
+#content {
+
+	clear: both;
+
+	overflow: auto;
+
+	padding-top: 29px;
+
+}
+
+
+/* Sidebar */
+
+#content .sidebar {
+
+	font-family: 'Montserrat', sans-serif;
+
+	color: rgba(146,146,146,1.00);
+
+	float: left;
+
+	width: 70%;
+
+	padding-left: 20%;
+
+	padding-right: 5%;
+
+	text-align: center;
+
+	background-color: #4db6ac;
+
+	padding-top: 30px;
+
+	padding-bottom:  30px;
+
+	height: 784px;
+
+}
+
+/* Notifications */
+
+#content .notifications {
+
+	font-family: 'Montserrat', sans-serif;
+
+	color: rgba(146,146,146,1.00);
+
+	width: 700px;
+
+	height: 500px;
+
+	text-align: left;
+
+}
+
+
+/*menubar's properties for menus in sidebar */
+
+#content .sidebar #menubar {
+
+	text-align: left;
+
+	font-family: "Cooper Black";
+
+	color: rgba(146,146,146,1.00);
+
+	position: relative;
+
+	left: 0%;
+
+}
+
+
+/*menu elements */
+
+.menu ul li {
+
+	list-style-type: none;
+
+	font-size: x-large;
+
+	position: relative;
+
+	left: -35px;
+
+	padding-top: 12px;
+
+}
+
+/*Links in sidebar */
+
+.sidebar #menubar .menu ul li a {
+
+	color: white;
+
+	text-decoration: none;
+
+	text-align: left;
+
+	font-size: 15px;
+
+}
+
+.sidebar #menubar .menu ul li a:hover {
+
+	color: white;
+
+	text-decoration: none;
+
+}
+
+/* Menu headings in sidebar */
+
+#menubar .menu h2 {
+
+	font-size: 14px;
+
+}
+
+/*Links under menus in sidebar */
+
+#menubar .menu ul li a {
+
+	font-size: 14px;
+
+}
+
+/* Menus in sidebar */
+
+.sidebar #menubar .menu {
+
+	margin-bottom: 29px;
+
+}
+
+
+/* Media query for tablets */
+
+@media screen and (max-width:700px) {
+
+/* search field in sidebar */
+
+#content .sidebar #search {
+
+	display: none;
+
+}
+
+/* sidebar */
+
+#content .sidebar {
+
+	float: none;
+
+	width: 100%;
+
+	height: auto;
+
+	overflow: auto;
+
+	padding-left: 12%;
+
+	padding-top: 0px;
+
+}
+
+/* horizontal separators in sidebar */
+
+#content .sidebar hr {
+
+	display: none;
+
+}
+
+/*The sidebar and maincontent of page */
+
+#content {
+
+	position: relative;
+
+	top: -22px;
+
+	width: 100%;
+
+	overflow: hidden;
+
+}
+
+/*menu headings in sidebar */
+
+#menubar .menu h2 {
+
+	display: inline;
+
+	font-size: medium;
+
+	padding-right: 6%;
+
+}
+
+/* Unordered List of links */
+
+#menubar .menu ul {
+
+	display: inline;
+
+}
+
+/*list elements */
+
+#menubar .menu ul li {
+
+	display: inline;
+
+	font-size: medium;
+
+	padding-left: 0%;
+
+	padding-right: 3%;
+
+}
+
+/*The link to be hidden in tablet view */
+
+.sidebar #menubar .menu ul .notimp {
+
+	display: none;
+
+}
+
+/* menus in sidebar */
+
+.sidebar #menubar .menu {
+
+	width: 100%;
+
+	text-align: center;
+
+	position: relative;
+
+	top: 16px;
+
+}
+
+/*menubar in sidebar */
+
+#content .sidebar #menubar {
+
+	position: relative;
+
+	left: -7%;
+
+	overflow: hidden;
+
+	width: 95%;
+
+	padding-top: 0px;
+
+}
+
+}
+
+
+
+/*media query for small screen devices */
+
+@media screen and (max-width:480px) {
+
+
+/* Menubar in sidebar */
+
+#content .sidebar #menubar {
+
+	position: relative;
+
+	left: -8%;
+
+	text-align: center;
+
+}
+
+/*Menu headings in sidebar */
+
+#menubar .menu h2 {
+
+	width: 100%;
+
+	display: block;
+
+}
+
+/* Unordered list for menu elements */
+
+.menu ul {
+
+	position: relative;
+
+	padding-left: 24%;
+
+}
+
+/* Main content which excludes the sidebar */
+
+#mainwrapper #content .mainContent {
+
+	margin-top: -81px;
+
+	text-align: center;
+
+	width: 100%;
+
+	padding-left: 0px;
+
+}
+
+
+
+}
+

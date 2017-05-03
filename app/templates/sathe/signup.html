@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Signup</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compitable" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-social.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <br>
+      <form action="/signup" method="post">
+      <div class="form-group col-sm-4 col-xs-12">
+        <input id ="username" type="text" placeholder="Username" name="username" value="{{
+          request.form.username }}" class="form-control">
+          </div>
+          <div class="form-group col-sm-4 col-xs-12">
+         <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}" class="form-control">
+          </div>
+          <div class="form-group col-sm-4 col-xs-12">
+         <input type="text" placeholder="Age" name="age" value="{{
+          request.form.age }}" class="form-control">
+          </div>
+          <div class="form-group col-xs-12 col-sm-1">
+        <input class="btn btn-primary" type="submit" value="Signup">
+        </div>
+        </form>
+      <p id="valid"></p>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+
+
+    <script type=text/javascript src="{{url_for('static', filename='jQuery.js') }}"></script>
+    <script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript">
+  $(function() {
+    $('#username').keyup(function(){
+      var temp = $('#username').val();
+      $.ajax({
+        url: '/verifyUserName',
+        data: $('form').serialize(),
+        type: 'POST',
+        success: function(response){
+          $('#valid').text(response);
+        },
+        error: function(response){
+          $('#valid').text(response);
+        }
+      });
+    });
+  });
+</script>
+  </body>
+</html>

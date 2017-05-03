@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compitable" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
+    <link href="../static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-social.css" rel="stylesheet">
+    <title>Home</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Sports Team</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#"><span class="glyphicon glyphicon-home"
+                         aria-hidden="true"></span> Home</a></li>
+                </ul>
+                 <ul class="nav navbar-nav navbar-right">
+                 {% if user %}
+                    <li><a><span>Hello {{user}}!</span></a></li>
+                    <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                 {% else %}
+                    <li><a id="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a id="signup"><span class="glyphicon glyphicon-log-in"></span> Signup</a></li>
+                 {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+ <div class="container">
+        <div class="row">
+           <div id="main"></div>
+        </div>
+      </div>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script type=text/javascript src="{{url_for('static', filename='jQuery.js') }}"></script>
+    <script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script type="text/javascript">
+  $(function() {
+    $('#login').click(function(){
+      $.ajax({
+        url: '/login',
+        type: 'POST',
+        success: function(response){
+          $('#main').html(response);
+        },
+        error: function(response){
+          $('#main').html(response);
+        }
+      });
+    });
+});
+
+  $(function(){
+    $('#signup').click(function(){
+      $.ajax({
+        url: '/signup',
+        data: $('form').serialize(),
+        type: 'POST',
+        success: function(response){
+          $('#main').html(response);
+        },
+        error: function(response){
+          $('#main').html(response);
+        }
+      });
+    });
+  });
+
+
+</script>
+</body>
+
+</html>
