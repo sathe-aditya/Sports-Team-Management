@@ -23,7 +23,7 @@ def allowedFile(filename):
 @app.route('/')
 def home():
 	session.clear()
-	return render_template('home.html', user=request.args.get('user'))
+	return render_template('login_signup.html', user=request.args.get('user'))
 
 
 
@@ -62,7 +62,7 @@ def login():
 				error = "Invalid Credentials."
 		except Exception:
 			pass
-	return render_template('login.html', error=error)
+	return render_template('login_signup.html', error=error)
 
 
 
@@ -92,7 +92,7 @@ def signup():
 				return redirect(url_for('home', user=uname))
 		except Exception:
 			pass
-	return render_template('signup.html')
+	return render_template('login_signup.html')
 
 
 @app.route('/verifyUserName', methods=['POST'])

@@ -1,0 +1,15 @@
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <form action="/scheduleMatch" method="post">
+            <input type="date" name="date" value="{{request.form.date }}">
+            <br>
+            <input type="time" name="time" value="{{request.form.time }}">
+            <br>
+            <input type="text" name="opponent" placeholder="Opposite Team" value="{{request.form.opponent }}">
+            <br>
+            <input type="submit" name="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>

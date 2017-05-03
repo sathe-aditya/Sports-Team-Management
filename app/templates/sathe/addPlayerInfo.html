@@ -1,0 +1,24 @@
+<div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+<form action="/addPlayerInfo" method="post" enctype="multipart/form-data">
+Name:<input type="text" name="playerName" value={{request.form.playerName}} required>
+<br>
+Jersey Number:<input type="number" name="playerNumber" placeholder="Jersey Number" value={{request.form.playerNumber}} required>
+<br>
+Height (cms):<input type="number" name="playerHeight" value={{request.form.playerHeight}} required>
+<br>
+Weight (kg):<input type="number" name="playerWeight" value={{request.form.playerWeight}} required>
+<br>
+Position:<input type="radio" name="playerPosition" value="GK" checked>GK
+<input type="radio" name="playerPosition" value="DEF">DEF
+<input type="radio" name="playerPosition" value="MID">MID
+<input type="radio" name="playerPosition" value="ATT">ATT
+<br>
+<input type="file" name="playerPhoto" required>
+<br>
+<input type="submit" value="Submit">
+</form>
+</div>
+</div>
+</div>
