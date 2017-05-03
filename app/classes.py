@@ -87,6 +87,10 @@ class Player(User):
         print('lol')
         #code goes here
         
+    def viewMatches(self):
+        temp = models.Match.query.all()
+        return temp
+        
 class Medical(User):
     def __init__(self, name, age, username, password):
         User.__init__(self, name, age, username, password)

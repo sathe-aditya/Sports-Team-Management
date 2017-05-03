@@ -42,12 +42,12 @@
             </div>
             <div id="login" class="panel-collapse collapse in">
               <div class="panel-body">
-                <form class="form-login">
+                <form class="form-login" action="/login" method="post">
                   <label for="userid" class="sr-only">User ID</label>
-                  <input id="userid" class="form-control" placeholder="UserID" required autofocus value="{{
+                  <input name='username' id="userid" class="form-control" placeholder="UserID" required autofocus value="{{
           request.form.username }}" >
                   <label for="password" class="sr-only">Password</label>
-                  <input type="password" id="password" class="form-control" placeholder="Password" required value="{{
+                  <input name='password' type="password" id="password" class="form-control" placeholder="Password" required value="{{
           request.form.password }}">
                         {% if error %}
                         <p class="error"><strong>Error:</strong> {{ error }}</p>

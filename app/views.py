@@ -274,7 +274,7 @@ def coach():
 
 @app.route('/viewMatches', methods=['GET', 'POST'])
 def viewMatches():
-	if session['user'] == 'coach' or session['user'] == 'public':
+	if session['user'] == 'coach' or session['user'] == 'public' or session['user'] == 'player':
 		global userSession
 		matches = userSession.viewMatches()
 		return render_template('viewMatches.html', matches=matches, user=userSession.getName())
